@@ -1,0 +1,16 @@
+services:
+  # Option 1: Node.js Web Service with Live Health Check & Keep-Alive Self-Pinger
+  - type: web
+    name: ecmwf-aifs-weather
+    env: node
+    plan: free
+    region: oregon
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SELF_PING_INTERVAL_MINUTES
+        value: "13"
